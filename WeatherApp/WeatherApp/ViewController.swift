@@ -7,13 +7,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchResultsUpdating {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.setupNavigationBar()
     }
-
-
+    private func setupNavigationBar() {
+        self.navigationItem.title = "Wether"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    func updateSearchResults(for searchController: UISearchController){
+        
+}
 }
 
