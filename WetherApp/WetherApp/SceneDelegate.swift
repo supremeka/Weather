@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  WeatherApp
+//  WetherApp
 //
-//  Created by Кирилл on 2/12/21.
+//  Created by Кирилл on 2/18/21.
 //
 
 import UIKit

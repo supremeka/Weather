@@ -1,10 +1,9 @@
 //
 //  ViewController.swift
-//  WeatherApp
+//  WetherApp
 //
-//  Created by Кирилл on 2/12/21.
+//  Created by Кирилл on 2/18/21.
 //
-
 import UIKit
 
 class ViewController: UIViewController, UISearchResultsUpdating {
@@ -15,15 +14,17 @@ class ViewController: UIViewController, UISearchResultsUpdating {
         self.setupNavigationBar()
     }
     private func setupNavigationBar() {
-        self.navigationItem.title = "Wether"
+        self.navigationItem.title = "WeatherApp"
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     func updateSearchResults(for searchController: UISearchController){
-        
+        print(searchController.searchBar.text)
 }
+    
 }
-
