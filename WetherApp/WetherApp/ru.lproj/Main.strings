@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Town"; ObjectID = "1Fr-9V-mf1"; */
+"1Fr-9V-mf1.text" = "Город";
+
+/* Class = "UILabel"; text = "°C"; ObjectID = "Cm3-ZQ-NP4"; */
+"Cm3-ZQ-NP4.text" = "°C";
+
+/* Class = "UILabel"; text = "Enter city please"; ObjectID = "JFb-aY-tDC"; */
+"JFb-aY-tDC.text" = "Введите город!";
+
+/* Class = "UISearchBar"; placeholder = "Enter city"; ObjectID = "RaO-0A-dT2"; */
+"RaO-0A-dT2.placeholder" = "Введите город";
+
+/* Class = "UILabel"; text = "Day"; ObjectID = "ZZh-kV-T2b"; */
+"ZZh-kV-T2b.text" = "День";
+
+/* Class = "UILabel"; text = "Weather"; ObjectID = "tEf-rc-fXZ"; */
+"tEf-rc-fXZ.text" = "Погода";

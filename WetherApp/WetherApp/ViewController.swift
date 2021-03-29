@@ -5,87 +5,27 @@
 //  Created by Кирилл on 2/18/21.
 //
 import UIKit
-import Alamofire
-import CoreLocation
-import SwiftyJSON
-import NVActivityIndicatorView
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet weak var background: UIView!
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var townLabel: UILabel!
+    @IBOutlet weak var weatherStatus: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var weatherDescriptionLabel: UILabel!
-    @IBOutlet weak var dyaLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var weatherImage: UIImageView!
+    @IBOutlet weak var ceilcLabel: UILabel!
+    @IBOutlet weak var imageStatus: UIImageView!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var backgroundView: UIView!
     
     let gradientLayer = CAGradientLayer()
-    let apiKey = "618d5a756ac5aa0b8f39201f28346146"
-    var lat = 11.344533
-    var lon = 104.33322
-    var activityIndicator: NVActivityIndicatorView!
-    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        background.layer.addSublayer(gradientLayer)
-        
-        let indicatorSize: CGFloat = 70
-        let indicatorFrame = CGRect(x: (view.frame.width-indicatorSize)/2, y: (view.frame.height-indicatorSize)/2, width: indicatorSize, height: indicatorSize)
-        activityIndicator = NVActivityIndicatorView(frame: indicatorFrame, type: .lineScale, color: UIColor.white, padding: 20.0)
-        activityIndicator.backgroundColor = UIColor.black
-        view.addSubview(activityIndicator)
-        
-        locationManager.requestWhenInUseAuthorization()
-        
-        activityIndicator.startAnimating()
-        if(CLLocationManager.locationServicesEnabled()){
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
+        searchBar.delegate = self
+        backgroundView.layer.addSublayer(gradientLayer)
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setBlueGradientBackground()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0]
-        lat = location.coordinate.latitude
-        lon = location.coordinate.longitude
-        Alamofire.request("https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&appid=\(apiKey)&units=metric").responseJSON {
-            response in
-            self.activityIndicator.stopAnimating()
-            if let responseStr = response.result.value {
-                let jsonResponse = JSON(responseStr)
-                let jsonWeather = jsonResponse["weather"].array![0]
-                let jsonTemp = jsonResponse["main"]
-                let iconName = jsonWeather["icon"].stringValue
-                self.cityLabel.text = jsonResponse["name"].stringValue
-                self.weatherImage.image = UIImage(named: iconName)
-                self.weatherDescriptionLabel.text = jsonWeather["main"].stringValue
-                self.tempLabel.text = "\(Int(round(jsonTemp["temp"].doubleValue)))"
-                let date = Date()
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "EEEE"
-                self.dyaLabel.text = dateFormatter.string(from: date)
-                
-                let suffix = iconName.suffix(1)
-                if(suffix == "n"){
-                    self.setGrayGradientColor()
-                }else{
-                    self.setBlueGradientBackground()
-                }
-            }
-        }
-        self.locationManager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-    
     
   
     func setBlueGradientBackground(){
@@ -95,11 +35,84 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         gradientLayer.colors = [topColor, bottomColor]
     }
     
-    func setGrayGradientColor(){
+    func setGreyGradientBackground(){
         let topColor = UIColor(red: 151.0/255.0, green: 151.0/255.0, blue: 151.0/255.0, alpha: 1.0).cgColor
         let bottomColor = UIColor(red: 72.0/255.0, green: 72.0/255.0, blue: 72.0/255.0, alpha: 1.0).cgColor
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [topColor, bottomColor]
+    }
+}
+extension ViewController: UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        
+        let urlString = "http://api.openweathermap.org/data/2.5/forecast?q=\(searchBar.text!)&appid=618d5a756ac5aa0b8f39201f28346146"
+        let url = URL(string: urlString)
+        
+        var locationName: String?
+        var temp: String?
+        var weatherText: String?
+        var weatherImage: UIImage?
+        
+        let task = URLSession.shared.dataTask(with: url!) { [weak self] (data, response, error) in
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                    as! [String : AnyObject]
+                
+                if let location = json["city"] {
+                    locationName = location["name"] as? String
+                    
+                }
+                
+                let array = (json["list"] as? Array<[String : AnyObject]>)?.last
+                
+                
+                let firstDay = (json["list"] as? Array<[String : AnyObject]>)?.last
+                
+                if let tempDouble = firstDay?["main"]?["temp"] as? Double {
+                    temp = String(format: "%.0f", tempDouble - 273.15)
+                }
+                
+                let weather = (firstDay?["weather"] as? Array<[String : AnyObject]>)?.last
+                
+                if let time = array?["dt"] as? Double{
+                    
+                }
+                
+                if let weatherTitle = weather?["main"] as? String,
+                   let weatherDescr = weather?["description"] as? String {
+                    weatherText = [weatherTitle, weatherDescr].joined(separator: ", ")
+                }
+                
+                let date = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "EEEE"
+                
+                
+                
+                if let iconName = weather?["icon"] as? String,
+                   let image = UIImage(named: iconName) {
+                    weatherImage = image
+                }
+                
+                DispatchQueue.main.async {
+                    self?.dayLabel.isHidden = false
+                    self?.ceilcLabel.isHidden = false
+                    self?.townLabel.isHidden = false
+                    self?.townLabel.text = locationName
+                    self?.tempLabel.text = temp
+                    self?.weatherStatus.isHidden = false
+                    self?.weatherStatus.text = weatherText
+                    self?.imageStatus.image = weatherImage
+                    self?.dayLabel.text = dateFormatter.string(from: date)
+                }
+                
+            }
+            catch let jsonError {
+                print(jsonError)
+            }
+        }
+        task.resume()
     }
     
 }

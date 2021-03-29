@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,8 @@
 		2B05BACE25DEEE9400797B0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B05BAD125DEEE9400797B0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B05BAD325DEEE9400797B0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B84AE0E26122ACB004F4EB7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2B84AE0F26122ACB004F4EB7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BAB74F1E4017D37D3EFBBF51 /* Pods-WetherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WetherApp.debug.xcconfig"; path = "Target Support Files/Pods-WetherApp/Pods-WetherApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D4766F45183DAB849CD22E14 /* Pods-WetherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WetherApp.release.xcconfig"; path = "Target Support Files/Pods-WetherApp/Pods-WetherApp.release.xcconfig"; sourceTree = "<group>"; };
 		EF7F9EAF2408FFEA557451B0 /* Pods_WetherApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WetherApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,7 +50,6 @@
 				BAB74F1E4017D37D3EFBBF51 /* Pods-WetherApp.debug.xcconfig */,
 				D4766F45183DAB849CD22E14 /* Pods-WetherApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -135,6 +136,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 2B05BAB925DEEE9200797B0F;
 			productRefGroup = 2B05BAC325DEEE9200797B0F /* Products */;
@@ -219,6 +221,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2B05BACC25DEEE9200797B0F /* Base */,
+				2B84AE0E26122ACB004F4EB7 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2B05BAD125DEEE9400797B0F /* Base */,
+				2B84AE0F26122ACB004F4EB7 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -238,6 +242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -299,6 +304,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
